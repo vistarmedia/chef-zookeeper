@@ -1,3 +1,4 @@
+defulat[:zookeeper][:file_cache_path] = Chef::Config[:file_cache_path]
 default[:zookeeper][:version] = "3.4.5"
 default[:zookeeper][:mirror] = "http://mirrors.ibiblio.org/apache/zookeeper/zookeeper-#{default[:zookeeper][:version]}/zookeeper-#{default[:zookeeper][:version]}.tar.gz"
 default[:zookeeper][:install_dir] = "/opt/zookeeper"
@@ -19,7 +20,7 @@ default[:exhibitor][:log_index_dir] = "/tmp/zookeeper_log_indexes"
 # Port for the HTTP Server
 default[:exhibitor][:opts][:port] = "8080"
 default[:exhibitor][:opts][:hostname] =  node[:ipaddress]
-default[:exhibitor][:opts][:defaultconfig] = "#{Chef::Config[:file_cache_path]}/defaultconfig.exhibitor"
+default[:exhibitor][:opts][:defaultconfig] = "#{node[:zookeeper][:file_cache_path]}/defaultconfig.exhibitor"
 
 default[:exhibitor][:opts][:configtype] = "file"
 default[:exhibitor][:opts][:fsconfigdir] = "/tmp"

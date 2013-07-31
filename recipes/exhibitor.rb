@@ -38,10 +38,10 @@ include_recipe "zookeeper::zookeeper"
   end
 end
 
-jar_file = "#{Chef::Config[:file_cache_path]}/exhibitor/build/libs/exhibitor-#{node[:exhibitor][:version]}.jar"
+jar_file = "#{node[:zookeeper][:file_cache_path]}/exhibitor/build/libs/exhibitor-#{node[:exhibitor][:version]}.jar"
 
 bash "build exhibitor" do
-  cwd "#{Chef::Config[:file_cache_path]}/exhibitor"
+  cwd "#{node[:zookeeper][:file_cache_path]}/exhibitor"
   code %(gradle jar)
   creates jar_file
 end

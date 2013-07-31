@@ -19,7 +19,7 @@
 
 dest_file = "gradle-#{node[:gradle][:version]}.zip"
 
-remote_file "#{Chef::Config[:file_cache_path]}/#{dest_file}" do
+remote_file "#{node[:zookeeper][:file_cache_path]}/#{dest_file}" do
   owner "root"
   source node[:gradle][:mirror]
   mode "0644"
@@ -30,21 +30,21 @@ package "unzip" do
   action :install
 end
 
-dest_path = "#{Chef::Config[:file_cache_path]}/gradle-#{node[:gradle][:version]}"
+dest_path = "#{node[:zookeeper][:file_cache_path]}/gradle-#{node[:gradle][:version]}"
 
 bash "unzip gradle" do
   user "root"
-  cwd Chef::Config[:file_cache_path]
+  cwd node[:zookeeper][:file_cache_path]
   code %(unzip #{dest_file})
   creates dest_path
 end
 
 ENV["PATH"] += ":#{dest_path}/bin"
 
-directory "#{Chef::Config[:file_cache_path]}/exhibitor"
+directory "#{node[:zookeeper][:file_cache_path]}/exhibitor"
 
 template "build.gradle" do
-  path "#{Chef::Config[:file_cache_path]}/exhibitor/build.gradle"
+  path "#{node[:zookeeper][:file_cache_path]}/exhibitor/build.gradle"
   source "build.gradle.erb"
   variables(
     :version => node[:exhibitor][:version]

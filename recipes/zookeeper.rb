@@ -21,7 +21,7 @@ include_recipe "java"
 
 zk_basename = "zookeeper-#{node[:zookeeper][:version]}"
 
-remote_file "#{Chef::Config[:file_cache_path]}/#{zk_basename}.tar.gz" do
+remote_file "#{node[:zookeeper][:file_cache_path]}/#{zk_basename}.tar.gz" do
   action :create_if_missing
   owner "root"
   source node[:zookeeper][:mirror]
@@ -35,14 +35,14 @@ end
 
 bash "untar zookeeper" do
   user "root"
-  cwd "#{Chef::Config[:file_cache_path]}"
+  cwd "#{node[:zookeeper][:file_cache_path]}"
   code %(tar zxf #{zk_basename}.tar.gz)
   creates "#{Chef::Config[:file_cache_path]}/#{zk_basename}"
 end
 
 bash "copy zk root" do
   user node[:exhibitor][:user]
-  cwd "#{Chef::Config[:file_cache_path]}"
+  cwd "#{node[:zookeeper][:file_cache_path]}"
   code %(cp -r #{zk_basename} #{node[:zookeeper][:install_dir]}/)
   creates "#{node[:zookeeper][:install_dir]}/#{zk_basename}"
 end
