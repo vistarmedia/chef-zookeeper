@@ -1,4 +1,4 @@
-defulat[:zookeeper][:file_cache_path] = Chef::Config[:file_cache_path]
+default[:zookeeper][:file_cache_path] = Chef::Config[:file_cache_path]
 default[:zookeeper][:version] = "3.4.5"
 default[:zookeeper][:mirror] = "http://mirrors.ibiblio.org/apache/zookeeper/zookeeper-#{default[:zookeeper][:version]}/zookeeper-#{default[:zookeeper][:version]}.tar.gz"
 default[:zookeeper][:install_dir] = "/opt/zookeeper"
